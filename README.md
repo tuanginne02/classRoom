@@ -1,30 +1,29 @@
-# Classroom Project
+Classroom Project
+Backend (server/)
+Overview
+This is the backend of the Classroom system, built with Node.js and Express, connected to Firebase Realtime Database. It supports user authentication, user management (students, instructors), lesson assignment, real-time chat, file uploads, email sending, and more.
 
-## Backend (server/)
+Requirements
+Node.js >= 16.x
 
-### Tổng quan
+Firebase Realtime Database (with Admin SDK service account)
 
-Đây là phần backend của hệ thống Classroom, sử dụng Node.js với Express, kết nối Firebase Realtime Database, hỗ trợ xác thực, quản lý người dùng, sinh viên, giáo viên, bài học, chat real-time, upload file, gửi email, và nhiều chức năng khác.
+SMTP email account (for sending emails)
 
-### Yêu cầu hệ thống
+Twilio account (for SMS-based authentication, if used)
 
-- Node.js >= 16.x
-- Firebase Realtime Database (service account)
-- Tài khoản email SMTP (cho gửi mail)
-- Twilio (nếu dùng xác thực SMS)
-
-### Cài đặt
-
-```bash
+Installation
+bash
+Copy
+Edit
 cd server
 npm install
-```
+Configuration
+Create a .env file in the server/ folder with the following variables:
 
-### Cấu hình
-
-Tạo file `.env` trong thư mục `server/` với các biến sau (ví dụ):
-
-```
+ini
+Copy
+Edit
 PORT=5000
 SMTP_USER=your_email@gmail.com
 SMTP_PASS=your_email_password
@@ -33,147 +32,176 @@ TWILIO_AUTH_TOKEN=your_twilio_token
 TWILIO_PHONE=your_twilio_phone
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=admin_password
-```
+Note:
 
-**Lưu ý:**
+Place the serviceAccountKey.json (Firebase Admin SDK) file inside the server/ directory.
 
-- Đặt file `serviceAccountKey.json` (Firebase Admin SDK) vào thư mục `server/` (đã được .gitignore).
-- Không commit file này lên GitHub.
+DO NOT commit this file to GitHub (already ignored in .gitignore).
 
-### Chạy server
+Run the Server
+For production:
 
-- Chạy production:
-  ```bash
-  npm start
-  ```
-- Chạy development (hot reload):
-  ```bash
-  npm run dev
-  ```
+bash
+Copy
+Edit
+npm start
+For development (with hot reload):
 
-### Scripts
+bash
+Copy
+Edit
+npm run dev
+Available Scripts
+npm start: Start the server normally
 
-- `npm start`: Chạy server bình thường
-- `npm run dev`: Chạy server với nodemon (tự động reload khi thay đổi code)
-- `npm run test`: Chạy test với Jest
-- `npm run lint`: Kiểm tra code với ESLint
-- `npm run lint:fix`: Sửa lỗi lint tự động
+npm run dev: Start the server with nodemon for live reloading
 
-### Các thư mục/file chính
+npm run test: Run tests with Jest
 
-- `server.js`: File chính khởi động server Express
-- `firebase.js`: Kết nối Firebase Admin SDK
-- `data.js`: Các hàm truy vấn dữ liệu
-- `uploads/`: Lưu file upload (ví dụ: bài tập, tài liệu)
-- `utils.js`: Các hàm tiện ích
+npm run lint: Check code using ESLint
 
-### Các API tiêu biểu
+npm run lint:fix: Automatically fix lint issues
 
-- `POST /addStudent`: Thêm sinh viên mới
-- `POST /addInstructor`: Thêm giáo viên mới
-- `GET /students`: Lấy danh sách sinh viên
-- `GET /student/:phone`: Lấy thông tin chi tiết sinh viên
-- `PUT /editStudent/:phone`: Sửa thông tin sinh viên
-- `DELETE /student/:phone`: Xóa sinh viên
-- `POST /assignLesson`: Giao bài cho sinh viên
-- `POST /validateAccessCode`: Xác thực mã truy cập
-- `POST /setRole`: Gán vai trò cho user
-- `POST /submitAssignment`: Nộp bài tập
-- ... và nhiều API khác (xem trong `server.js`)
+Key Files/Folders
+server.js: Entry point of the Express app
 
-### Realtime & Chat
+firebase.js: Firebase Admin SDK setup
 
-- Sử dụng Socket.io cho chat 1-1, thông báo realtime, trạng thái online.
+data.js: Data access logic
 
-### Bảo mật
+uploads/: Stores uploaded files (assignments, resources)
 
-- Không commit file `.env`, `serviceAccountKey.json`, hoặc dữ liệu uploads lên GitHub.
-- Đã có `.gitignore` bảo vệ các file này.
+utils.js: Utility functions
 
----
+Key API Endpoints
+POST /addStudent: Add a new student
 
-## Frontend (client/)
+POST /addInstructor: Add a new instructor
 
-### Tổng quan
+GET /students: Get list of all students
 
-Đây là phần giao diện người dùng của hệ thống Classroom, xây dựng với React, sử dụng Vite, Material UI, Socket.io-client, và kết nối với backend qua REST API.
+GET /student/:phone: Get details of a specific student
 
-### Yêu cầu hệ thống
+PUT /editStudent/:phone: Edit student info
 
-- Node.js >= 16.x
+DELETE /student/:phone: Delete student
 
-### Cài đặt
+POST /assignLesson: Assign a lesson to students
 
-```bash
+POST /validateAccessCode: Validate access code (SMS)
+
+POST /setRole: Set user role
+
+POST /submitAssignment: Submit a lesson
+
+... and many more (see server.js)
+
+Realtime & Chat
+Uses Socket.io for real-time 1-1 chat, notifications, and online status tracking.
+
+Security Notes
+Sensitive files such as .env, serviceAccountKey.json, and uploaded data are excluded from Git versioning.
+
+.gitignore is configured properly to protect secrets.
+
+Frontend (client/)
+Overview
+This is the frontend interface of the Classroom system, built with React, powered by Vite, styled with Material UI, using Socket.io-client and REST API for communication.
+
+Requirements
+Node.js >= 16.x
+
+Installation
+bash
+Copy
+Edit
 cd client
 npm install
-```
+Configuration
+Create a .env file inside the client/ directory with the following example content:
 
-### Cấu hình
+ini
+Copy
+Edit
+VITE_API_URL=http://localhost:5000
+Make sure this endpoint matches your backend server address.
 
-- Nếu cần, tạo file `.env` trong thư mục `client/` để cấu hình endpoint API, ví dụ:
-  ```
-  VITE_API_URL=http://localhost:5000
-  ```
-- Đảm bảo endpoint API đúng với backend.
+Run the Frontend
+Development:
 
-### Chạy frontend
+bash
+Copy
+Edit
+npm run dev
+Build for production:
 
-- Chạy development:
-  ```bash
-  npm run dev
-  ```
-- Build production:
-  ```bash
-  npm run build
-  ```
-- Xem thử bản build:
-  ```bash
-  npm run preview
-  ```
+bash
+Copy
+Edit
+npm run build
+Preview build output:
 
-### Scripts
+bash
+Copy
+Edit
+npm run preview
+Available Scripts
+npm run dev: Start development server (hot reload)
 
-- `npm run dev`: Chạy chế độ phát triển (hot reload)
-- `npm run build`: Build production
-- `npm run preview`: Xem thử bản build
-- `npm run lint`: Kiểm tra code với ESLint
+npm run build: Build for production
 
-### Các thư mục/file chính
+npm run preview: Preview production build
 
-- `src/`: Chứa toàn bộ mã nguồn React
-  - `components/`: Các component giao diện (Admin, Instructor, Student, Chat, ...)
-  - `pages/`: Các trang chính (Dashboard, Login, Profile, ...)
-  - `services/`: Các hàm gọi API backend (student, instructor, user, ...)
-  - `hooks/`: Custom hooks (ví dụ: useAuth)
-  - `assets/`: Ảnh, icon, ...
-- `public/`: File tĩnh, favicon, ...
-- `index.html`: File HTML gốc
+npm run lint: Lint the code using ESLint
 
-### Các dependency chính
+Key File Structure
+src/: Main source code
 
-- `react`, `react-dom`: Thư viện React
-- `@mui/material`, `@mui/icons-material`: Material UI cho giao diện
-- `axios`: Gọi API
-- `socket.io-client`: Kết nối realtime với backend
-- `firebase`: (nếu dùng xác thực hoặc push notification phía client)
-- `react-router-dom`: Routing
-- `date-fns`: Xử lý ngày tháng
-- `react-hot-toast`: Toast notification
+components/: UI components (Admin, Instructor, Student, Chat, etc.)
 
-### Chức năng nổi bật
+pages/: Main pages (Dashboard, Login, Profile, etc.)
 
-- Đăng nhập, đăng ký, xác thực qua mã truy cập
-- Quản lý sinh viên, giáo viên, lớp học
-- Giao bài, nộp bài, xem tiến độ
-- Chat realtime 1-1 giữa giáo viên và sinh viên
-- Thống kê, quản lý hệ thống (Admin)
-- Responsive UI, trải nghiệm hiện đại
+services/: API handlers for student, instructor, user, etc.
 
-### Bảo mật
+hooks/: Custom React hooks (e.g., useAuth)
 
-- Không commit file `.env`, dữ liệu nhạy cảm, hoặc file build lên GitHub (đã có `.gitignore`).
+assets/: Icons, images, etc.
 
----
+public/: Static files, favicon
 
-Nếu bạn muốn README có ví dụ request/response API, hướng dẫn chi tiết hơn về cấu trúc code, hoặc bổ sung phần nào, hãy nói rõ nhé!
+index.html: Root HTML file
+
+Main Dependencies
+react, react-dom: React core
+
+@mui/material, @mui/icons-material: Material UI
+
+axios: HTTP client
+
+socket.io-client: Realtime connection with backend
+
+firebase: Optional (for push notification / auth if needed)
+
+react-router-dom: Routing
+
+date-fns: Date/time handling
+
+react-hot-toast: Toast notifications
+
+Highlight Features
+Login, registration, access code validation
+
+Manage students, instructors, lessons
+
+Assign, submit, and track progress of lessons
+
+Real-time 1-on-1 chat between students and instructors
+
+Admin dashboard for system management
+
+Fully responsive modern UI
+
+Security Notes
+.env files, sensitive configs, and build outputs are excluded from Git (via .gitignore).
+
+Never commit secrets or sensitive data to GitHub.
