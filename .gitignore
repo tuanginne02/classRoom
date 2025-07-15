@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
+
+# Firebase service account key
+server/serviceAccountKey.json
+
+# VSCode settings
+.vscode/
+
+# Uploads (nếu chứa dữ liệu nhạy cảm)
+server/uploads/
+
+# IDE files
+.idea/
+*.iml
+
+# Misc
+*.log
+
+# Ignore lock files if you want (optional)
+# package-lock.json
+yarn.lock
+
+# biến ẩn
+src/components/Admin/*.jsx
+src/pages/AdminDashboard.jsx 

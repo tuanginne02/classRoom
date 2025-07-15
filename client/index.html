@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta Tags -->
+  <title>ClassRoom - Modern Learning Management System</title>
+  <meta name="description"
+    content="A modern, real-time learning management system for instructors and students. Manage lessons, track progress, and communicate seamlessly." />
+  <meta name="keywords"
+    content="learning management system, education, online learning, student management, lesson tracking, real-time chat" />
+  <meta name="author" content="ClassRoom Team" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="ClassRoom - Modern Learning Management System" />
+  <meta property="og:description"
+    content="A modern, real-time learning management system for instructors and students. Manage lessons, track progress, and communicate seamlessly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://classroom-app.com" />
+  <meta property="og:image" content="/vite.svg" />
+  <meta property="og:site_name" content="ClassRoom" />
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ClassRoom - Modern Learning Management System" />
+  <meta name="twitter:description"
+    content="A modern, real-time learning management system for instructors and students." />
+  <meta name="twitter:image" content="/vite.svg" />
+
+  <!-- Additional SEO Meta Tags -->
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="English" />
+  <meta name="revisit-after" content="7 days" />
+  <meta name="distribution" content="global" />
+  <meta name="rating" content="general" />
+
+  <!-- Mobile Meta Tags -->
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="ClassRoom" />
+
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data for SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ClassRoom",
+      "description": "A modern, real-time learning management system for instructors and students",
+      "url": "https://classroom-app.com",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "ClassRoom Team"
+      },
+      "featureList": [
+        "Real-time student management",
+        "Lesson assignment and tracking",
+        "Progress monitoring",
+        "Live chat communication",
+        "Responsive design"
+      ]
+    }
+    </script>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/vite.svg" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/vite.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/vite.svg" />
+
+  <!-- Manifest for PWA -->
+  <link rel="manifest" href="/manifest.json" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+
+  <!-- Loading indicator for better UX -->
+  <div id="loading-indicator"
+    style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.9); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div style="text-align: center;">
+      <div
+        style="width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;">
+      </div>
+      <p style="color: #6b7280; font-size: 16px;">Loading ClassRoom...</p>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+
+  <script>
+    // Show loading indicator
+    document.getElementById('loading-indicator').style.display = 'flex';
+
+    // Hide loading indicator when app is ready
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        document.getElementById('loading-indicator').style.display = 'none';
+      }, 1000);
+    });
+
+    // Service Worker registration for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js')
+          .then(function (registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function (registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+  </script>
+</body>
+
+</html>
